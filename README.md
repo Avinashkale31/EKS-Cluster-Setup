@@ -70,7 +70,7 @@ aws eks update-kubeconfig --region us-west-2 --name my-cluster
 **6. Verify the Cluster**
 Check that your cluster is up and running:
 ```bash
-eksctl get cluster --name my-cluster --region us-east-2
+eksctl get cluster --name my-cluster --region us-west-2
 ```
 Check the nodes
 ```bash
