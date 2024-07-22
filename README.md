@@ -12,12 +12,14 @@
 
 If you haven’t installed the AWS CLI yet, you can do so by following the installation guide.
 ```bash
-# On macOS using Homebrew
-brew install awscli
-
 # On Ubuntu/Debian
-sudo apt-get update
-sudo apt-get install awscli
+sudo apt update
+sudo apt-get install unzip curl -y
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version
+
 ```
 Configure the AWS CLI with your credentials:
 1. AWS Secret key
@@ -30,24 +32,21 @@ aws configure
 **2. Install kubectl**
 
 ```bash
-# On macOS using Homebrew
-brew install kubectl
-
 # On Ubuntu/Debian
 curl -LO "https://dl.k8s.io/release/v1.23.5/bin/linux/amd64/kubectl"
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
+kubectl version --client
 ```
 
 **3. Install eksctl**
 
 ```bash
-# On macOS using Homebrew
-brew install eksctl
-
 # On Ubuntu/Debian
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/0.110.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" --output eksctl.tar.gz
+tar -xzf eksctl.tar.gz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
 ```
 
 **4. Create an EKS Cluster**
@@ -76,4 +75,9 @@ eksctl get cluster --name my-cluster --region us-east-2
 Check the nodes
 ```bash
 kubectl get nodes
+```
+
+**7. Deleting the EKS Cluster**
+```bash
+eksctl delete cluster --name my-cluster --region us-east-2
 ```
